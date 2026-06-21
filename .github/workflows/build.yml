@@ -62,6 +62,18 @@ jobs:
       contents: write
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Read VERSION changelog
+        id: changelog
+        run: |
+          {
+            echo 'BODY<<EOF'
+            cat VERSION
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -72,5 +84,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          prerelease: true
+          name: ${{ github.ref_name }} - ActRemoteLink
+          body: ${{ steps.changelog.outputs.BODY }}
+          prerelease: false
           files: ActRemoteLink.zip
