@@ -88,7 +88,7 @@ That user now has save games, licenses, and activity tied to Slot 1.
 > [!WARNING]
 > For that scenario, **this person should NOT modify the `account_id` of User1**. Keep Slot 1 untouched.
 >
-> The behavior described above was noticed after user reports from **FanFlizzy**, who helped identify that changing the existing Gezine/User1 account can lead to save/game conflicts.
+> The behavior described above was noticed after user reports from **[FanFlizzy](https://x.com/FanFlizzy/status/2068437156335350041)**, who helped identify that changing the existing Gezine/User1 account can lead to save/game conflicts.
 >
 > This does not appear to be a normal project flow issue. It is a risk caused by modifying an already-used restored account that already has save data tied to it.
 
