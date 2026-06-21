@@ -84,7 +84,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }} - ActRemoteLink
+          name: ActRemoteLink ${{ github.ref_name }}
           body: ${{ steps.changelog.outputs.BODY }}
           prerelease: false
+          make_latest: true
           files: ActRemoteLink.zip
