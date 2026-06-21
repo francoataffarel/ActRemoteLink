@@ -79,19 +79,6 @@ If you want to use this project to activate an offline account, the safer approa
 
 ---
 
-#### Worst-Case Scenario
-
-The worst case is someone who jailbroke the PS5, restored Gezine's backup, and then used **User1 / Slot 1** as their daily gaming account for months.
-
-That user now has save games, licenses, and activity tied to Slot 1.
-
-> [!WARNING]
-> For that scenario, **this person should NOT modify the `account_id` of User1**. Keep Slot 1 untouched.
->
-> The behavior described above was noticed after user reports from **[FanFlizzy](https://x.com/FanFlizzy/status/2068437156335350041)**, who helped identify that changing the existing Gezine/User1 account can lead to save/game conflicts.
->
-> This does not appear to be a normal project flow issue. It is a risk caused by modifying an already-used restored account that already has save data tied to it.
-
 
 This project was updated and consolidated using concepts, references, and workflow improvements from **[LinkDev](https://github.com/ps5-payload-dev/linkdev)**, **[OffAct](https://github.com/ps5-payload-dev/offact)**, and **[ps5-remoteplay-get-pin](https://github.com/idlesauce/ps5-remoteplay-get-pin)**, while also taking advantage of newer versions of the **[ps5-payload-dev SDK](https://github.com/ps5-payload-dev/sdk/releases)**.
 

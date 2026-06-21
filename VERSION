@@ -1,3 +1,15 @@
+v2.0 - ActRemoteLink
+- Integrated np-fake-signin (offline PSN sign-in via templates)
+- New command: FAKESIGNIN <slot> with foreground user safety check
+- Slot 1 protection: set-id and fake-signin reject slot 1 modification
+- Registry key read/write: GETKEY and SETKEY commands
+- COMPARE command for slot-by-slot registry diff
+- PAIRED command to list paired Remote Play devices
+- PREPARE_PIN command with auto Remote Play enablement
+- Sender: full CLI support for all new agent commands
+- README: Case Study section for Gezine backup scenarios
+- Credits: np-fake-signin (earthonion), FanFlizzy (save conflict report)
+
 v1.0 - ActRemoteLink
 - Agent functional: users/current/set-id/b64
 - PIN notify functional via direct libSceRemoteplay call
