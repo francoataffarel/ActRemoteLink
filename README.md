@@ -10,6 +10,89 @@
 > * **Activating other accounts (Slot 2 or higher):** To use your original PSN account or another custom account offline, **create a new local user** (which will occupy Slot 2 or higher). You will then run the fake activation (`set-id`) and the integrated NP fake sign-in (`fake-signin`) exclusively on this new user account.
 > * **Mandatory Foreground User State:** When executing pairing or establishing a Remote Play connection, the offline user you want to stream to (e.g., Slot 2) **must be the active foreground user logged in on the PS5 screen**. This is a requirement for Remote Play/Chiaki to access the session.
 
+---
+
+### Case Study: Existing Jailbroken PS5 — Multiple Situations
+
+This section explains common real-world scenarios where users may already have an existing local account, restored backup, or save data before using this project.
+
+The goal is to avoid unnecessary account modification, especially on accounts that already have save games or previous PSN association.
+
+---
+
+#### Situation 1: Previously PSN-Activated or Associated Account
+
+If the account you want to use for Remote Play was already legitimately PSN-activated or associated at least once on that PS5, you usually do **not** need to modify its `account_id`.
+
+This is a separate scenario from the Gezine backup case.
+
+For users who already have a legitimately activated or previously associated account on the console, the recommended approach is to first test Remote Play without making any account modifications.
+
+> [!TIP]
+> **Try the normal path first before modifying anything:**
+> 1. Log into the user you want to stream from.
+> 2. Enable Remote Play in the PS5 settings.
+> 3. Register the console in Chiaki or PS Remote Play.
+> 4. Make sure that this user is the active foreground user on the PS5 screen.
+>
+> If Remote Play works using this method, you do not need to use `set-id` or change the account identifier for that user.
+
+---
+
+#### Situation 2: Gezine Backup / User1 / Slot 1
+
+A common scenario is the following:
+
+You jailbroke your PS5 months ago, restored a system backup such as Gezine's backup, and continued using **User1 / Slot 1** as your normal account for playing games, creating save data, and using the console day to day.
+
+Later, you decide that you want to use Remote Play from a PC, either through **Chiaki** or the official **PS Remote Play** app.
+
+In this case, the most important thing to understand is:
+
+> [!NOTE]
+> If you restored Gezine's backup and continued using User1 / Slot 1 as your main playing account, that user may already be associated in a way that allows Remote Play to work after simply enabling Remote Play.
+>
+> So, before modifying anything, first try to enable Remote Play normally on User1 / Slot 1.
+
+If Remote Play still does not work, you may try the project's **fake-signin** option on Slot 1 (see [Step 5: NP Fake Sign-in](#5-np-fake-sign-in-integrated-offline-psn-sign-in) in the Quick Start section).
+
+> [!WARNING]
+> **Do not change the `account_id` of Slot 1 / User1 from Gezine's backup.**
+>
+> The dangerous action is modifying the `account_id` of the existing User1 from the restored backup.
+>
+> Doing that can create a conflict between the local user, the account association, and the save data already tied to that user. The result may be that your games or saves stop working as expected.
+
+---
+
+#### Recommended Safe Approach to Keep Your Save Games and Settings
+
+If you want to use this project to activate an offline account, the safer approach is:
+
+> [!IMPORTANT]
+> 1. Leave **User1 / Slot 1** untouched.
+> 2. Create a new local user, which will become **Slot 2 or higher**.
+> 3. Run `set-id` and `fake-signin` only on this new user.
+> 4. Enable Remote Play for the new user.
+> 5. Make sure the new user is the active foreground user before pairing or connecting.
+> 6. After confirming everything works, you may use a save manager such as **Garlic Save Manager** to migrate or resign saves from User1 to the new user, if needed.
+
+---
+
+#### Worst-Case Scenario
+
+The worst case is someone who jailbroke the PS5, restored Gezine's backup, and then used **User1 / Slot 1** as their daily gaming account for months.
+
+That user now has save games, licenses, and activity tied to Slot 1.
+
+> [!WARNING]
+> For that scenario, **this person should NOT modify the `account_id` of User1**. Keep Slot 1 untouched.
+>
+> The behavior described above was noticed after user reports from **FanFlizzy**, who helped identify that changing the existing Gezine/User1 account can lead to save/game conflicts.
+>
+> This does not appear to be a normal project flow issue. It is a risk caused by modifying an already-used restored account that already has save data tied to it.
+
+
 This project was updated and consolidated using concepts, references, and workflow improvements from **[LinkDev](https://github.com/ps5-payload-dev/linkdev)**, **[OffAct](https://github.com/ps5-payload-dev/offact)**, and **[ps5-remoteplay-get-pin](https://github.com/idlesauce/ps5-remoteplay-get-pin)**, while also taking advantage of newer versions of the **[ps5-payload-dev SDK](https://github.com/ps5-payload-dev/sdk/releases)**.
 
 Recent SDK updates, especially versions **v0.38**, **v0.39**, and **v0.40**, added important compatibility improvements, including CRT support for firmware **13.00** and **13.20**, as well as kernel offset support for **11.xx** and **12.xx** firmware versions. These updates helped modernize the payload structure and improve firmware compatibility.
