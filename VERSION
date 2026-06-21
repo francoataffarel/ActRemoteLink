@@ -1,0 +1,7 @@
+v1.0 - ActRemoteLink
+- Agent functional: users/current/set-id/b64
+- PIN notify functional via direct libSceRemoteplay call
+- Remote Play pairing confirmed
+- No ptrace
+- No SDL
+- No manual menu
