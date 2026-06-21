@@ -1,0 +1,76 @@
+name: ActRemoteLink
+
+on:
+  push:
+    paths:
+      - '**'
+    tags:
+      - '*'
+  pull_request:
+    paths:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install bash clang-18 lld-18
+          sudo apt install build-essential cmake pkg-config
+
+      - name: Install toolchain
+        run: |
+          wget https://github.com/ps5-payload-dev/pacbrew-repo/releases/latest/download/ps5-payload-dev.tar.gz
+          sudo tar xf ps5-payload-dev.tar.gz -C /
+
+      - name: Build
+        run: |
+          export PS5_PAYLOAD_SDK=/opt/ps5-payload-sdk
+          make clean
+          make
+
+      - name: Zip build output
+        run: |
+          mkdir -p release
+          cp actremotelink_agent.elf release/
+          cp actremotelink_pin_notify.elf release/
+          cp actremotelink_sender.py release/
+          cp README.md release/
+          cp VERSION release/
+          cp THIRD_PARTY_NOTICES.md release/
+          cd release
+          zip -r ../ActRemoteLink.zip .
+
+      - name: Upload zipped artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ActRemoteLink
+          path: ActRemoteLink.zip
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ActRemoteLink
+          path: .
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          prerelease: true
+          files: ActRemoteLink.zip
